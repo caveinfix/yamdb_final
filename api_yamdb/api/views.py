@@ -1,36 +1,26 @@
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import get_object_or_404
 from django.db.models import Avg
+from django.shortcuts import get_object_or_404
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, status, viewsets
-from rest_framework.response import Response
-from rest_framework.pagination import LimitOffsetPagination
-from rest_framework.generics import CreateAPIView
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import ParseError, ValidationError
+from rest_framework.generics import CreateAPIView
+from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import AllowAny
-from django_filters.rest_framework import DjangoFilterBackend
-
+from rest_framework.response import Response
 from reviews.models import Category, Comment, CustomUser, Genre, Review, Title
-from .serializers import (
-    CategorySerializer,
-    CommentSerializer,
-    GenreSerializer,
-    ReviewSerializer,
-    TitleCreateSerializer,
-    TitleSerializer,
-    UserSerializer,
-)
-from .mixins import ListCreateDestroyViewSet
-from .tokens import get_jwt_token
-from .permissions import (
-    IsAdminOrReadOnly,
-    IsAdminOrSuperuser,
-    ProfilePermission,
-    IsAdminOrReadOnly,
-    IsAuthorOrAdminOrModerator,
-    IsAuthorizedOrReadOnly,
-)
+
 from .filters import TitleFilter
+from .mixins import ListCreateDestroyViewSet
+from .permissions import (IsAdminOrReadOnly, IsAdminOrSuperuser,
+                          IsAuthorizedOrReadOnly, IsAuthorOrAdminOrModerator,
+                          ProfilePermission)
+from .serializers import (CategorySerializer, CommentSerializer,
+                          GenreSerializer, ReviewSerializer,
+                          TitleCreateSerializer, TitleSerializer,
+                          UserSerializer)
+from .tokens import get_jwt_token
 
 
 class SignupViewSet(CreateAPIView):
