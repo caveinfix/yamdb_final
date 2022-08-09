@@ -11,7 +11,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", default="12345")
 
 DEBUG = False
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", default="51.250.18.244").split()
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", default="*").split()
 
 
 INSTALLED_APPS = [
