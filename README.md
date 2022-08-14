@@ -15,10 +15,10 @@
 - Docker 20.10.17
 - Docker-compose 3.8
 
-### Подоготовка к deploy
+### Подоготовка к deploy на сервер
 Необходимо сделать форк проекта и клонировать репозиторий локально для дальнейшей работы.
 
-### Настройка секретов
+### Настройка секретов для actions
 Устанавливаем значения для:
 ```
 DB_ENGINE: django.db.backends.postgresql
@@ -49,6 +49,7 @@ DB_PORT=5432
 ### Копирование файлов на сервер
 Переходим на локальной машине в папку infra и отправляем на сервер два файла:
 - docker-compose.yaml
+
 Пример:
 ```
 scp docker-compose.yaml caveinfix@51.250.18.244:/home/caveinfix/
@@ -98,6 +99,19 @@ sudo docker-compose exec -T web python manage.py migrate
 sudo docker-compose exec -T web python manage.py collectstatic --no-input
 ```
 
+### Наполнение базы тестовыми данными
+Дополнительно предусмотрен тестовый контент, который можно скопировать с локальной машины:
+
+Переходим в папку infra, далее копируем на сервер командой:
+
+Пример:
+```
+scp fixtures.json caveinfix@51.250.18.244:/home/caveinfix/
+```
+После копирования выполняем команду на сервер:
+```
+sudo docker-compose exec -T web python manage.py loaddata fixtures.json 
+```
 
 ### Документация и примеры
 Посмотреть подробную документацию API:
